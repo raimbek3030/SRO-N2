@@ -1,0 +1,49 @@
+import java.util.*;
+
+public class ChatAnalyzer {
+
+    public static void main(String[] args) {
+
+        List<String> messages = Arrays.asList(
+                "Ali: hello world",
+                "Aruzhan: hello",
+                "Ali: how are you",
+                "Aruzhan: I am fine",
+                "Ali: hello",
+                "Dias: hello everyone",
+                "Ali: fine thanks"
+        );
+
+        HashMap<String, Integer> userCount = new HashMap<>();
+        HashMap<String, Integer> wordCount = new HashMap<>();
+
+        for (String msg : messages) {
+
+            String[] parts = msg.split(":");
+            String user = parts[0].trim();
+            String text = parts[1].trim();
+
+            // Қолданушы хабарлама саны
+            userCount.put(user, userCount.getOrDefault(user, 0) + 1);
+
+            // Сөздерге бөлу
+            String[] words = text.split(" ");
+
+            for (String word : words) {
+                word = word.toLowerCase();
+                wordCount.put(word, wordCount.getOrDefault(word, 0) + 1);
+            }
+        }
+
+        // Нәтиже шығару
+        System.out.println("=== ҚОЛДАНУШЫ СТАТИСТИКАСЫ ===");
+        for (String user : userCount.keySet()) {
+            System.out.println(user + ": " + userCount.get(user));
+        }
+
+        System.out.println("\n=== СӨЗ ЖИІЛІГІ ===");
+        for (String word : wordCount.keySet()) {
+            System.out.println(word + ": " + wordCount.get(word));
+        }
+    }
+}
